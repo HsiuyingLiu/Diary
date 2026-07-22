@@ -10,18 +10,20 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   
   <style>
-    /* 莫蘭迪色系與加深邊框設定 */
+    /* 明亮明快的莫蘭迪活潑配色 */
     :root {
-      --bg-color: #f2efe9;         /* 莫蘭迪灰燕麥色背景 */
+      --bg-color: #f7f5f0;         /* 溫柔奶油燕麥底色 */
       --card-bg: #ffffff;          /* 純白卡片背景 */
-      --filter-bar-bg: #e2ddd5;    /* 第二、三頁篩選欄對比背景 */
-      --primary: #5c6e65;          /* 莫蘭迪深灰綠 */
-      --primary-dark: #47574f;     /* 點擊深色 */
-      --accent: #a38272;           /* 暖駝色 */
-      --text-main: #2b2e2c;        /* 加深主字體 */
-      --text-sub: #5c615e;         /* 次要文字 */
-      --border-color: #8c857b;     /* 加深邊框顏色 */
-      --danger: #be6b67;           /* 莫蘭迪紅 */
+      --filter-bar-bg: #eef3f0;    /* 活潑淡薄荷綠襯色 (第二、三頁篩選列) */
+      --primary: #6b9080;          /* 清爽鼠尾草綠 (主色) */
+      --primary-dark: #557567;     /* 深鼠尾草綠 */
+      --accent-coral: #e8a598;     /* 活潑柔和珊瑚粉 */
+      --accent-yellow: #f4d35e;    /* 明亮暖黃 */
+      --text-main: #333d39;        /* 柔和深灰綠文字 */
+      --text-sub: #7a8b84;         /* 中灰綠次要文字 */
+      --border-color: #b0c2b7;     /* 中度灰綠邊框 */
+      --border-light: #d1dcd5;     /* 輕軟邊框 */
+      --danger: #e07a5f;           /* 暖珊瑚紅 (刪除) */
     }
 
     * {
@@ -46,14 +48,15 @@
 
     main {
       flex: 1;
-      height: calc(100vh - 70px);
+      /* 精確預留底部導覽列 60px 空間，其餘全部交給主內容區域 */
+      height: calc(100vh - 60px);
       overflow-y: auto;
     }
 
     .page {
       display: none;
       height: 100%;
-      padding: 12px 16px;
+      padding: 10px 14px;
       box-sizing: border-box;
     }
 
@@ -62,85 +65,84 @@
       flex-direction: column;
     }
 
-    /* 頁面一：單頁顯示專用佈局 */
+    /* 第一頁：緊湊佈局，確保所有元素不留空隙、不產生捲軸 */
     #page-1 {
-      justify-content: space-between;
+      justify-content: flex-start;
+      gap: 6px;
     }
 
-    /* 標題樣式 */
+    /* 標題樣式 - 緊湊高質感 */
     .title-main {
-      font-size: 28px;
-      font-weight: 900;
-      color: #1a211e;
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--primary-dark);
       text-align: center;
-      margin-bottom: 8px;
-      letter-spacing: 1px;
+      margin-bottom: 2px;
+      letter-spacing: 0.5px;
     }
 
     .title-secondary {
-      font-size: 24px;
-      font-weight: 800;
-      color: #1a211e;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--primary-dark);
       text-align: center;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
     }
 
     /* 表單區塊 */
     .form-group {
-      margin-bottom: 8px;
+      margin-bottom: 0;
       background: var(--card-bg);
-      padding: 8px 14px;
+      padding: 6px 12px;
       border-radius: 10px;
       border: 1.5px solid var(--border-color);
       display: flex;
       align-items: center;
       justify-content: space-between;
+      box-shadow: 0 1px 4px rgba(107, 144, 128, 0.05);
     }
 
-    /* 日期與類別欄位文字：19px 加粗 */
     .form-group label {
-      font-size: 19px;
-      font-weight: bold;
+      font-size: 18px;
+      font-weight: 600;
       color: var(--text-main);
     }
 
     .date-picker-wrapper {
       display: flex;
       align-items: center;
-      gap: 8px;
-      cursor: pointer;
+      width: 100%;
+      justify-content: center;
     }
 
     input[type="date"], select {
       border: none;
       background: transparent;
-      font-size: 19px;
-      font-weight: bold;
+      font-size: 18px;
+      font-weight: 600;
       color: var(--text-main);
       outline: none;
-    }
-
-    .calendar-icon-btn {
-      color: var(--primary);
-      font-size: 22px;
-      padding: 4px;
       cursor: pointer;
     }
 
-    /* 第二、三頁頂部篩選欄不同顏色背景 */
+    #p1-date {
+      width: 100%;
+      text-align: center;
+    }
+
     .filter-bar {
       background-color: var(--filter-bar-bg);
       border: 1.5px solid var(--border-color);
-      margin-bottom: 12px;
+      margin-bottom: 10px;
     }
 
-    /* 大輸入框 container */
+    /* 輸入欄容器：彈性伸展（flex: 1），吞掉畫面上所有剩餘高度 */
     .textarea-container {
       flex: 1;
       display: flex;
       flex-direction: column;
-      margin-bottom: 8px;
-      min-height: 120px;
+      margin: 2px 0;
+      min-height: 140px;
     }
 
     .note-textarea {
@@ -149,13 +151,14 @@
       background: var(--card-bg);
       border: 1.5px solid var(--border-color);
       border-radius: 10px;
-      padding: 12px;
+      padding: 10px;
       font-size: 19px;
-      font-weight: normal; /* 不加粗 */
+      font-weight: normal;
       color: var(--text-main);
       line-height: 1.4;
       resize: none;
       outline: none;
+      box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.02);
     }
 
     .note-textarea::placeholder {
@@ -163,46 +166,61 @@
       opacity: 0.6;
     }
 
-    /* 按鈕樣式 */
+    /* 底部按鈕區塊 */
+    .action-bottom-block {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 2px;
+    }
+
     .btn-group {
       display: flex;
       gap: 8px;
-      margin-top: 4px;
     }
 
     .btn {
       flex: 1;
-      padding: 10px;
-      border: 1px solid var(--border-color);
-      border-radius: 8px;
-      font-size: 16px;
-      font-weight: bold;
+      padding: 9px;
+      border: none;
+      border-radius: 9px;
+      font-size: 15px;
+      font-weight: 600;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 6px;
+      transition: all 0.15s ease;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
     }
 
     .btn-primary {
       background-color: var(--primary);
-      color: #fff;
-      border: none;
+      color: #ffffff;
     }
 
     .btn-primary:active {
       background-color: var(--primary-dark);
+      transform: scale(0.98);
     }
 
     .btn-secondary {
-      background-color: #d8d2c7;
-      color: var(--text-main);
+      background-color: #e4ece7;
+      color: var(--primary-dark);
+      border: 1.5px solid var(--border-color);
+    }
+
+    .btn-secondary:active {
+      background-color: #d1ded6;
+      transform: scale(0.98);
     }
 
     /* 列表區域 */
     .list-container {
       flex: 1;
       overflow-y: auto;
+      padding-bottom: 10px;
     }
 
     .record-item-wrapper {
@@ -214,46 +232,48 @@
 
     .record-item {
       background: var(--card-bg);
-      padding: 12px 14px;
+      padding: 10px 12px;
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       gap: 10px;
-      border: 1.5px solid var(--border-color);
+      border: 1.5px solid var(--border-light);
       border-radius: 10px;
       transition: transform 0.2s ease;
       user-select: none;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.02);
     }
 
     .record-date {
-      font-size: 14px;
-      color: var(--text-sub);
+      font-size: 15px;
+      color: var(--primary-dark);
       white-space: nowrap;
-      font-weight: bold;
+      font-weight: 600;
+      padding-top: 3px;
     }
 
     .category-icon {
-      width: 34px;
-      height: 34px;
+      width: 30px;
+      height: 30px;
       border-radius: 50%;
       color: white;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 15px;
-      font-weight: bold;
+      font-size: 14px;
+      font-weight: 700;
       flex-shrink: 0;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.08);
     }
 
-    .record-content {
+    .record-content-full {
       font-size: 16px;
       color: var(--text-main);
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+      line-height: 1.45;
       flex: 1;
+      word-break: break-word;
+      white-space: pre-wrap;
     }
 
-    /* 編輯與刪除按鈕 */
     .action-btn-group {
       position: absolute;
       right: 0;
@@ -265,17 +285,18 @@
     }
 
     .edit-btn {
-      width: 60px;
+      width: 55px;
       background-color: var(--primary);
       color: white;
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
+      font-size: 16px;
     }
 
     .delete-btn {
-      width: 60px;
+      width: 55px;
       background-color: var(--danger);
       color: white;
       display: flex;
@@ -283,16 +304,17 @@
       justify-content: center;
       border-radius: 0 10px 10px 0;
       cursor: pointer;
+      font-size: 16px;
     }
 
     .record-item-wrapper.swiped .record-item {
-      transform: translateX(-120px);
+      transform: translateX(-110px);
     }
     .record-item-wrapper.swiped .action-btn-group {
       transform: translateX(0);
     }
 
-    /* 底部固定導覽列 */
+    /* 底部固定導覽列 - 調整高度為 60px 讓畫面更寬敞 */
     .bottom-nav {
       position: fixed;
       bottom: 0;
@@ -300,30 +322,32 @@
       transform: translateX(-50%);
       width: 100%;
       max-width: 480px;
-      height: 70px;
+      height: 60px;
       background-color: var(--card-bg);
-      border-top: 2px solid var(--border-color);
+      border-top: 1.5px solid var(--border-color);
       display: flex;
       justify-content: space-around;
       align-items: center;
       z-index: 100;
+      box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.03);
     }
 
     .nav-item {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 3px;
+      gap: 2px;
       color: var(--text-sub);
       text-decoration: none;
-      font-size: 15px; /* 底欄字體加大 */
-      font-weight: bold;
+      font-size: 14px;
+      font-weight: 600;
       cursor: pointer;
       flex: 1;
+      transition: color 0.15s ease;
     }
 
     .nav-item i {
-      font-size: 22px;
+      font-size: 20px;
     }
 
     .nav-item.active {
@@ -338,38 +362,36 @@
 <body>
 
   <main>
-    <!-- 第一頁：每日記事 (一頁內顯示完畢) -->
+    <!-- 第一頁：每日記事 (強化適配：自動填滿空間、拉上按鈕) -->
     <section id="page-1" class="page active">
-      <div>
-        <h1 class="title-main">每日記事</h1>
-        
-        <div class="form-group">
-          <label>日期</label>
-          <div class="date-picker-wrapper">
-            <input type="date" id="p1-date">
-            <i class="fa-regular fa-calendar-days calendar-icon-btn" onclick="openDatePicker('p1-date')"></i>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label>類別</label>
-          <select id="p1-category">
-            <option value="個人活動">個人活動</option>
-            <option value="健康出遊">健康出遊</option>
-            <option value="金融購物">金融購物</option>
-            <option value="家庭事務">家庭事務</option>
-            <option value="大事紀">大事紀</option>
-            <option value="感想">感想</option>
-          </select>
+      <h1 class="title-main">每日記事</h1>
+      
+      <div class="form-group">
+        <div class="date-picker-wrapper">
+          <input type="date" id="p1-date">
         </div>
       </div>
 
+      <div class="form-group">
+        <label>類別</label>
+        <select id="p1-category">
+          <option value="個人活動">個人活動</option>
+          <option value="健康出遊">健康出遊</option>
+          <option value="金融購物">金融購物</option>
+          <option value="家庭事務">家庭事務</option>
+          <option value="大事紀">大事紀</option>
+          <option value="感想">感想</option>
+        </select>
+      </div>
+
+      <!-- 輸入欄改為 flex: 1，會自動擴展並放大填滿中段空間 -->
       <div class="textarea-container">
         <textarea id="p1-content" class="note-textarea" placeholder="在這裡輸入今天的記事內容..."></textarea>
       </div>
 
-      <div>
-        <button class="btn btn-primary" style="width: 100%; margin-bottom: 6px;" onclick="saveNote()">
+      <!-- 底部按鈕區塊緊貼輸入欄下方 -->
+      <div class="action-bottom-block">
+        <button class="btn btn-primary" onclick="saveNote()">
           <i class="fa-solid fa-floppy-disk"></i> 儲存
         </button>
 
@@ -382,6 +404,7 @@
           </button>
         </div>
       </div>
+
       <input type="file" id="file-input" accept=".xlsx, .xls" onchange="importXLSX(event)">
     </section>
 
@@ -391,10 +414,8 @@
       
       <div class="form-group filter-bar">
         <label>檢視日期</label>
-        <div class="date-picker-wrapper">
+        <div class="date-picker-wrapper" style="width:auto;">
           <input type="date" id="p2-date" onchange="renderPage2()">
-          <!-- 點擊 calendar icon 直接選擇日期 -->
-          <i class="fa-regular fa-calendar-days calendar-icon-btn" onclick="openDatePicker('p2-date')"></i>
         </div>
       </div>
 
@@ -420,7 +441,7 @@
       </div>
 
       <div id="p3-list" class="list-container">
-        <!-- 動態渲染最新紀錄列表（一頁為限） -->
+        <!-- 動態渲染最新紀錄列表 -->
       </div>
     </section>
   </main>
@@ -442,20 +463,18 @@
   </nav>
 
   <script>
-    // 每個類別的專屬莫蘭迪色彩設定
     const categoryColors = {
-      '個人活動': '#7a8f78', // 灰綠
-      '健康出遊': '#d49b7d', // 暖陶
-      '金融購物': '#6b8294', // 灰藍
-      '家庭事務': '#b08e7d', // 燕麥咖啡
-      '大事紀': '#8c7b93', // 灰紫
-      '感想': '#be9393'     // 灰粉
+      '個人活動': '#6b9080',
+      '健康出遊': '#e8a598',
+      '金融購物': '#5c809b',
+      '家庭事務': '#d4a373',
+      '大事紀': '#9b82a6',
+      '感想': '#e07a5f'
     };
 
     let notes = JSON.parse(localStorage.getItem('user_notes')) || [];
     let editingId = null;
 
-    // 取得今天本地日期的 yyyy-mm-dd 字串
     function getTodayString() {
       const now = new Date();
       const year = now.getFullYear();
@@ -464,15 +483,13 @@
       return `${year}-${month}-${day}`;
     }
 
-    // 開啟日期選取器
-    function openDatePicker(inputId) {
-      const input = document.getElementById(inputId);
-      if (input.showPicker) {
-        input.showPicker();
-      } else {
-        input.focus();
-        input.click();
+    function formatMonthDay(dateStr) {
+      if (!dateStr) return '';
+      const parts = dateStr.split('-');
+      if (parts.length === 3) {
+        return `${parseInt(parts[1])}/${parseInt(parts[2])}`;
       }
+      return dateStr;
     }
 
     document.addEventListener('DOMContentLoaded', () => {
@@ -543,7 +560,7 @@
       }
 
       filteredNotes.forEach(note => {
-        const itemEl = createRecordElement(note, true);
+        const itemEl = createRecordElement(note, { showDate: false, showCategory: true });
         container.appendChild(itemEl);
       });
     }
@@ -553,7 +570,6 @@
       const container = document.getElementById('p3-list');
       container.innerHTML = '';
 
-      // 最多 10 筆限制在一頁內
       const filteredNotes = notes.filter(n => n.category === selectedCategory).slice(0, 10);
 
       if (filteredNotes.length === 0) {
@@ -562,96 +578,93 @@
       }
 
       filteredNotes.forEach(note => {
-        const itemEl = createRecordElement(note, false);
+        const itemEl = createRecordElement(note, { showDate: true, showCategory: true });
         container.appendChild(itemEl);
       });
     }
 
-    // 建立紀錄元素（修正長按與滑動刪除功能）
-    function createRecordElement(note, enableActions = true) {
+    function createRecordElement(note, options = {}) {
       const wrapper = document.createElement('div');
       wrapper.className = 'record-item-wrapper';
 
       const firstChar = note.category ? note.category.charAt(0) : '記';
-      const bgIconColor = categoryColors[note.category] || '#7a8f78';
+      const bgIconColor = categoryColors[note.category] || '#6b9080';
+
+      let dateHtml = '';
+      if (options.showDate) {
+        const displayDate = formatMonthDay(note.date);
+        dateHtml = `<span class="record-date">${displayDate}</span>`;
+      }
 
       wrapper.innerHTML = `
         <div class="record-item">
-          <span class="record-date">${note.date}</span>
+          ${dateHtml}
           <div class="category-icon" style="background-color: ${bgIconColor}">${firstChar}</div>
-          <span class="record-content">${escapeHtml(note.content)}</span>
+          <div class="record-content-full">${escapeHtml(note.content)}</div>
         </div>
-        ${enableActions ? `
-          <div class="action-btn-group">
-            <div class="edit-btn" onclick="editNote(${note.id})"><i class="fa-solid fa-pen-to-square"></i></div>
-            <div class="delete-btn" onclick="deleteNote(${note.id})"><i class="fa-solid fa-trash"></i></div>
-          </div>
-        ` : ''}
+        <div class="action-btn-group">
+          <div class="edit-btn" onclick="editNote(${note.id})"><i class="fa-solid fa-pen-to-square"></i></div>
+          <div class="delete-btn" onclick="deleteNote(${note.id})"><i class="fa-solid fa-trash"></i></div>
+        </div>
       `;
 
       const item = wrapper.querySelector('.record-item');
+      let startX = 0;
+      let startY = 0;
+      let pressTimer = null;
 
-      if (enableActions) {
-        let startX = 0;
-        let startY = 0;
-        let pressTimer = null;
+      item.addEventListener('touchstart', (e) => {
+        startX = e.touches[0].clientX;
+        startY = e.touches[0].clientY;
 
-        // 手勢觸控事件
-        item.addEventListener('touchstart', (e) => {
-          startX = e.touches[0].clientX;
-          startY = e.touches[0].clientY;
+        pressTimer = setTimeout(() => {
+          editNote(note.id);
+        }, 700);
+      });
 
-          pressTimer = setTimeout(() => {
-            editNote(note.id);
-          }, 700); // 長按 0.7 秒觸發修改
-        });
+      item.addEventListener('touchmove', (e) => {
+        const moveX = e.touches[0].clientX;
+        const moveY = e.touches[0].clientY;
 
-        item.addEventListener('touchmove', (e) => {
-          const moveX = e.touches[0].clientX;
-          const moveY = e.touches[0].clientY;
-
-          if (Math.abs(moveX - startX) > 10 || Math.abs(moveY - startY) > 10) {
-            clearTimeout(pressTimer); // 移動時取消長按
-          }
-
-          const diffX = startX - moveX;
-          if (diffX > 40) {
-            wrapper.classList.add('swiped');
-          } else if (diffX < -40) {
-            wrapper.classList.remove('swiped');
-          }
-        });
-
-        item.addEventListener('touchend', () => clearTimeout(pressTimer));
-
-        // 桌面電腦滑鼠測試支援
-        let isMouseDown = false;
-        item.addEventListener('mousedown', (e) => {
-          isMouseDown = true;
-          startX = e.clientX;
-          pressTimer = setTimeout(() => {
-            if (isMouseDown) editNote(note.id);
-          }, 700);
-        });
-
-        item.addEventListener('mousemove', (e) => {
-          if (!isMouseDown) return;
-          if (Math.abs(e.clientX - startX) > 10) clearTimeout(pressTimer);
-        });
-
-        item.addEventListener('mouseup', (e) => {
-          isMouseDown = false;
+        if (Math.abs(moveX - startX) > 10 || Math.abs(moveY - startY) > 10) {
           clearTimeout(pressTimer);
-          const diffX = startX - e.clientX;
-          if (diffX > 40) wrapper.classList.add('swiped');
-          if (diffX < -40) wrapper.classList.remove('swiped');
-        });
-      }
+        }
+
+        const diffX = startX - moveX;
+        if (diffX > 40) {
+          wrapper.classList.add('swiped');
+        } else if (diffX < -40) {
+          wrapper.classList.remove('swiped');
+        }
+      });
+
+      item.addEventListener('touchend', () => clearTimeout(pressTimer));
+
+      let isMouseDown = false;
+      item.addEventListener('mousedown', (e) => {
+        isMouseDown = true;
+        startX = e.clientX;
+        pressTimer = setTimeout(() => {
+          if (isMouseDown) editNote(note.id);
+        }, 700);
+      });
+
+      item.addEventListener('mousemove', (e) => {
+        if (!isMouseDown) return;
+        if (Math.abs(e.clientX - startX) > 10) clearTimeout(pressTimer);
+      });
+
+      item.addEventListener('mouseup', (e) => {
+        isMouseDown = false;
+        clearTimeout(pressTimer);
+        const diffX = startX - e.clientX;
+        if (diffX > 40) wrapper.classList.add('swiped');
+        if (diffX < -40) wrapper.classList.remove('swiped');
+      });
 
       return wrapper;
     }
 
-    // 修改記事
     function editNote(id) {
       const targetNote = notes.find(n => n.id === id);
       if (!targetNote) return;
@@ -665,7 +678,6 @@
       }
     }
 
-    // 刪除記事
     function deleteNote(id) {
       if (confirm('確定要刪除這筆紀錄嗎？')) {
         notes = notes.filter(n => n.id !== id);
@@ -675,7 +687,6 @@
       }
     }
 
-    // 匯出 XLSX 檔
     function exportToXLSX() {
       if (notes.length === 0) {
         alert('目前無任何紀錄可供匯出！');
@@ -695,7 +706,6 @@
       XLSX.writeFile(workbook, `個人記事_${getTodayString()}.xlsx`);
     }
 
-    // 匯入 XLSX 檔
     function importXLSX(event) {
       const file = event.target.files[0];
       if (!file) return;
@@ -742,4 +752,3 @@
   </script>
 </body>
 </html>
-```eof
