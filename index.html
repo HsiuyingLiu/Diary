@@ -48,7 +48,6 @@
 
     main {
       flex: 1;
-      /* 精確預留底部導覽列 60px 空間，其餘全部交給主內容區域 */
       height: calc(100vh - 60px);
       overflow-y: auto;
     }
@@ -56,7 +55,7 @@
     .page {
       display: none;
       height: 100%;
-      padding: 10px 14px;
+      padding: 8px 12px;
       box-sizing: border-box;
     }
 
@@ -65,19 +64,17 @@
       flex-direction: column;
     }
 
-    /* 第一頁：緊湊佈局，確保所有元素不留空隙、不產生捲軸 */
     #page-1 {
       justify-content: flex-start;
       gap: 6px;
     }
 
-    /* 標題樣式 - 緊湊高質感 */
     .title-main {
-      font-size: 22px;
+      font-size: 20px;
       font-weight: 700;
       color: var(--primary-dark);
       text-align: center;
-      margin-bottom: 2px;
+      margin-bottom: 0px;
       letter-spacing: 0.5px;
     }
 
@@ -89,21 +86,20 @@
       margin-bottom: 8px;
     }
 
-    /* 表單區塊 */
     .form-group {
       margin-bottom: 0;
       background: var(--card-bg);
-      padding: 6px 12px;
-      border-radius: 10px;
+      padding: 5px 10px;
+      border-radius: 8px;
       border: 1.5px solid var(--border-color);
       display: flex;
       align-items: center;
       justify-content: space-between;
-      box-shadow: 0 1px 4px rgba(107, 144, 128, 0.05);
+      box-shadow: 0 1px 3px rgba(107, 144, 128, 0.05);
     }
 
     .form-group label {
-      font-size: 18px;
+      font-size: 17px;
       font-weight: 600;
       color: var(--text-main);
     }
@@ -118,7 +114,7 @@
     input[type="date"], select {
       border: none;
       background: transparent;
-      font-size: 18px;
+      font-size: 17px;
       font-weight: 600;
       color: var(--text-main);
       outline: none;
@@ -136,22 +132,21 @@
       margin-bottom: 10px;
     }
 
-    /* 輸入欄容器：彈性伸展（flex: 1），吞掉畫面上所有剩餘高度 */
+    /* 精確固定 12 行高度 (約 320px) */
     .textarea-container {
-      flex: 1;
+      flex: none;
       display: flex;
       flex-direction: column;
       margin: 2px 0;
-      min-height: 140px;
     }
 
     .note-textarea {
       width: 100%;
-      height: 100%;
+      height: 320px; /* 固定 12 行視覺高度 */
       background: var(--card-bg);
       border: 1.5px solid var(--border-color);
-      border-radius: 10px;
-      padding: 10px;
+      border-radius: 8px;
+      padding: 8px 10px;
       font-size: 19px;
       font-weight: normal;
       color: var(--text-main);
@@ -166,24 +161,23 @@
       opacity: 0.6;
     }
 
-    /* 底部按鈕區塊 */
     .action-bottom-block {
       display: flex;
       flex-direction: column;
-      gap: 6px;
-      margin-bottom: 2px;
+      gap: 5px;
+      margin-top: 2px;
     }
 
     .btn-group {
       display: flex;
-      gap: 8px;
+      gap: 6px;
     }
 
     .btn {
       flex: 1;
-      padding: 9px;
+      padding: 8px;
       border: none;
-      border-radius: 9px;
+      border-radius: 8px;
       font-size: 15px;
       font-weight: 600;
       cursor: pointer;
@@ -216,7 +210,6 @@
       transform: scale(0.98);
     }
 
-    /* 列表區域 */
     .list-container {
       flex: 1;
       overflow-y: auto;
@@ -314,7 +307,6 @@
       transform: translateX(0);
     }
 
-    /* 底部固定導覽列 - 調整高度為 60px 讓畫面更寬敞 */
     .bottom-nav {
       position: fixed;
       bottom: 0;
@@ -362,7 +354,7 @@
 <body>
 
   <main>
-    <!-- 第一頁：每日記事 (強化適配：自動填滿空間、拉上按鈕) -->
+    <!-- 第一頁：每日記事 -->
     <section id="page-1" class="page active">
       <h1 class="title-main">每日記事</h1>
       
@@ -384,12 +376,12 @@
         </select>
       </div>
 
-      <!-- 輸入欄改為 flex: 1，會自動擴展並放大填滿中段空間 -->
+      <!-- 固定 12 行長度 -->
       <div class="textarea-container">
-        <textarea id="p1-content" class="note-textarea" placeholder="在這裡輸入今天的記事內容..."></textarea>
+        <textarea id="p1-content" class="note-textarea" rows="12" placeholder="在這裡輸入今天的記事內容..."></textarea>
       </div>
 
-      <!-- 底部按鈕區塊緊貼輸入欄下方 -->
+      <!-- 按鈕區域直接緊貼向上升起 -->
       <div class="action-bottom-block">
         <button class="btn btn-primary" onclick="saveNote()">
           <i class="fa-solid fa-floppy-disk"></i> 儲存
