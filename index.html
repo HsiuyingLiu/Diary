@@ -286,7 +286,7 @@
     }
 
     .record-date {
-      font-size: 15px;
+      font-size: 14px;
       color: var(--primary-dark);
       white-space: nowrap;
       font-weight: 600;
@@ -421,7 +421,7 @@
       <input type="file" id="file-input" accept=".xlsx, .xls" onchange="importXLSX(event)">
     </section>
 
-    <!-- 第二頁：檢視 (二擇一或複合搜尋) -->
+    <!-- 第二頁：檢視 (出示完整年月日) -->
     <section id="page-2" class="page">
       <h2 class="title-secondary">檢視</h2>
       
@@ -469,11 +469,16 @@
       return `${year}-${month}-${day}`;
     }
 
-    function formatMonthDay(dateStr) {
+    // 將日期格式化為完整年月日 (格式: YYYY-MM-DD 或 YYYY/MM/DD)
+    function formatFullDate(dateStr) {
       if (!dateStr) return '';
-      const parts = dateStr.split('-');
+      // 若已有完整 YYYY-MM-DD 格式，補齊並格式化
+      const parts = dateStr.split(/[-/]/);
       if (parts.length === 3) {
-        return `${parseInt(parts[1])}/${parseInt(parts[2])}`;
+        const y = parts[0];
+        const m = String(parts[1]).padStart(2, '0');
+        const d = String(parts[2]).padStart(2, '0');
+        return `${y}-${m}-${d}`;
       }
       return dateStr;
     }
@@ -534,7 +539,6 @@
       renderPage2();
     }
 
-    // 第二頁：獨立搜尋與複合搜尋相容邏輯
     function renderPage2() {
       const keyword = document.getElementById('p2-keyword').value.trim().toLowerCase();
       const selectedDate = document.getElementById('p2-date').value;
@@ -548,7 +552,6 @@
         clearBtn.style.display = 'none';
       }
 
-      // 篩選：有填寫的條件才進行比對，沒填寫的直接 pass
       let filteredNotes = notes.filter(n => {
         let matchKeyword = true;
         let matchDate = true;
@@ -574,11 +577,12 @@
       });
     }
 
+    // 建立檢視頁面清單元素，顯示完整年月日
     function createRecordElement(note) {
       const wrapper = document.createElement('div');
       wrapper.className = 'record-item-wrapper';
 
-      const displayDate = formatMonthDay(note.date);
+      const displayDate = formatFullDate(note.date);
 
       wrapper.innerHTML = `
         <div class="record-item">
