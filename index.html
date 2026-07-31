@@ -118,7 +118,6 @@
       text-align: center;
     }
 
-    /* 調整輸入欄位高度適中 (240px，約 9~10 行)，留出足夠空間讓按鈕顯示 */
     .textarea-container {
       flex: none;
       display: flex;
@@ -128,7 +127,7 @@
 
     .note-textarea {
       width: 100%;
-      height: 240px; /* 適度縮短，確保下方按鈕不上推遮擋 */
+      height: 240px;
       background: var(--card-bg);
       border: 1.5px solid var(--border-color);
       border-radius: 8px;
@@ -194,7 +193,6 @@
       padding: 2px 4px;
     }
 
-    /* 將原生日期選擇器定位覆蓋在 icon 上方並設透明，徹底解決點擊無反應問題 */
     .overlay-date-picker {
       position: absolute;
       top: 0;
@@ -212,7 +210,6 @@
       display: none;
     }
 
-    /* 按鈕樣式 */
     .action-bottom-block {
       display: flex;
       flex-direction: column;
@@ -402,7 +399,6 @@
         </div>
       </div>
 
-      <!-- 輸入欄位縮短至 240px，讓儲存、下載、上傳按鍵清晰出現 -->
       <div class="textarea-container">
         <textarea id="p1-content" class="note-textarea" placeholder="在這裡輸入今天的記事內容..."></textarea>
       </div>
@@ -425,18 +421,16 @@
       <input type="file" id="file-input" accept=".xlsx, .xls" onchange="importXLSX(event)">
     </section>
 
-    <!-- 第二頁：檢視 -->
+    <!-- 第二頁：檢視 (二擇一或複合搜尋) -->
     <section id="page-2" class="page">
       <h2 class="title-secondary">檢視</h2>
       
       <div class="search-bar-container">
         <i class="fa-solid fa-magnifying-glass search-icon"></i>
-        <!-- 修正輸入關鍵字框可順暢輸入 -->
         <input type="text" id="p2-keyword" class="search-input" placeholder="輸入關鍵字" oninput="renderPage2()">
         
         <i class="fa-solid fa-circle-xmark clear-search-btn" id="clear-search-btn" onclick="clearP2Search()"></i>
 
-        <!-- 月曆選擇圖示，採用透明原生日期層覆蓋，徹底解決點擊無反應問題 -->
         <div class="calendar-wrapper-btn">
           <div class="calendar-trigger-btn">
             <i class="fa-regular fa-calendar-days"></i>
@@ -540,6 +534,7 @@
       renderPage2();
     }
 
+    // 第二頁：獨立搜尋與複合搜尋相容邏輯
     function renderPage2() {
       const keyword = document.getElementById('p2-keyword').value.trim().toLowerCase();
       const selectedDate = document.getElementById('p2-date').value;
@@ -553,6 +548,7 @@
         clearBtn.style.display = 'none';
       }
 
+      // 篩選：有填寫的條件才進行比對，沒填寫的直接 pass
       let filteredNotes = notes.filter(n => {
         let matchKeyword = true;
         let matchDate = true;
