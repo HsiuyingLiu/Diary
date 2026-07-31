@@ -14,11 +14,9 @@
     :root {
       --bg-color: #f7f5f0;         /* 溫柔奶油燕麥底色 */
       --card-bg: #ffffff;          /* 純白卡片背景 */
-      --filter-bar-bg: #eef3f0;    /* 活潑淡薄荷綠襯色 (第二、三頁篩選列) */
+      --filter-bar-bg: #eef3f0;    /* 淡薄荷綠襯色 */
       --primary: #6b9080;          /* 清爽鼠尾草綠 (主色) */
       --primary-dark: #557567;     /* 深鼠尾草綠 */
-      --accent-coral: #e8a598;     /* 活潑柔和珊瑚粉 */
-      --accent-yellow: #f4d35e;    /* 明亮暖黃 */
       --text-main: #333d39;        /* 柔和深灰綠文字 */
       --text-sub: #7a8b84;         /* 中灰綠次要文字 */
       --border-color: #b0c2b7;     /* 中度灰綠邊框 */
@@ -66,7 +64,7 @@
 
     #page-1 {
       justify-content: flex-start;
-      gap: 6px;
+      gap: 8px;
     }
 
     .title-main {
@@ -89,19 +87,13 @@
     .form-group {
       margin-bottom: 0;
       background: var(--card-bg);
-      padding: 5px 10px;
+      padding: 6px 12px;
       border-radius: 8px;
       border: 1.5px solid var(--border-color);
       display: flex;
       align-items: center;
       justify-content: space-between;
       box-shadow: 0 1px 3px rgba(107, 144, 128, 0.05);
-    }
-
-    .form-group label {
-      font-size: 17px;
-      font-weight: 600;
-      color: var(--text-main);
     }
 
     .date-picker-wrapper {
@@ -111,10 +103,10 @@
       justify-content: center;
     }
 
-    input[type="date"], select {
+    input[type="date"] {
       border: none;
       background: transparent;
-      font-size: 17px;
+      font-size: 18px;
       font-weight: 600;
       color: var(--text-main);
       outline: none;
@@ -126,15 +118,9 @@
       text-align: center;
     }
 
-    .filter-bar {
-      background-color: var(--filter-bar-bg);
-      border: 1.5px solid var(--border-color);
-      margin-bottom: 10px;
-    }
-
-    /* 精確固定 12 行高度 (約 320px) */
+    /* 放大後的大輸入欄位：填滿中間空間，約 15~16 行 */
     .textarea-container {
-      flex: none;
+      flex: 1;
       display: flex;
       flex-direction: column;
       margin: 2px 0;
@@ -142,15 +128,15 @@
 
     .note-textarea {
       width: 100%;
-      height: 320px; /* 固定 12 行視覺高度 */
+      height: 100%;
       background: var(--card-bg);
       border: 1.5px solid var(--border-color);
       border-radius: 8px;
-      padding: 8px 10px;
+      padding: 10px 12px;
       font-size: 19px;
       font-weight: normal;
       color: var(--text-main);
-      line-height: 1.4;
+      line-height: 1.45;
       resize: none;
       outline: none;
       box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.02);
@@ -161,6 +147,66 @@
       opacity: 0.6;
     }
 
+    /* 第二頁：搜尋列結構 */
+    .search-bar-container {
+      background: var(--card-bg);
+      border: 1.5px solid var(--border-color);
+      border-radius: 10px;
+      padding: 6px 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 10px;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);
+    }
+
+    .search-icon {
+      color: var(--primary);
+      font-size: 16px;
+    }
+
+    .search-input {
+      border: none;
+      background: transparent;
+      font-size: 16px;
+      color: var(--text-main);
+      outline: none;
+      flex: 1;
+      min-width: 0;
+    }
+
+    .search-input::placeholder {
+      color: var(--text-sub);
+    }
+
+    .calendar-trigger-btn {
+      color: var(--primary);
+      font-size: 18px;
+      cursor: pointer;
+      padding: 2px 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* 隱藏原生月曆，透過圖示觸發 */
+    .hidden-date-picker {
+      position: absolute;
+      opacity: 0;
+      width: 0;
+      height: 0;
+      pointer-events: none;
+    }
+
+    /* 清除日期/搜尋篩選的微型按鈕 */
+    .clear-search-btn {
+      color: var(--text-sub);
+      font-size: 14px;
+      cursor: pointer;
+      display: none;
+    }
+
+    /* 按鈕樣式 */
     .action-bottom-block {
       display: flex;
       flex-direction: column;
@@ -241,21 +287,7 @@
       color: var(--primary-dark);
       white-space: nowrap;
       font-weight: 600;
-      padding-top: 3px;
-    }
-
-    .category-icon {
-      width: 30px;
-      height: 30px;
-      border-radius: 50%;
-      color: white;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 14px;
-      font-weight: 700;
-      flex-shrink: 0;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+      padding-top: 2px;
     }
 
     .record-content-full {
@@ -354,7 +386,7 @@
 <body>
 
   <main>
-    <!-- 第一頁：每日記事 -->
+    <!-- 第一頁：每日記事 (取消類別，輸入欄直接接在日期下方) -->
     <section id="page-1" class="page active">
       <h1 class="title-main">每日記事</h1>
       
@@ -364,24 +396,12 @@
         </div>
       </div>
 
-      <div class="form-group">
-        <label>類別</label>
-        <select id="p1-category">
-          <option value="個人活動">個人活動</option>
-          <option value="健康出遊">健康出遊</option>
-          <option value="金融購物">金融購物</option>
-          <option value="家庭事務">家庭事務</option>
-          <option value="大事紀">大事紀</option>
-          <option value="感想">感想</option>
-        </select>
-      </div>
-
-      <!-- 固定 12 行長度 -->
+      <!-- 放大輸入欄位，直接接在日期欄位下面 -->
       <div class="textarea-container">
-        <textarea id="p1-content" class="note-textarea" rows="12" placeholder="在這裡輸入今天的記事內容..."></textarea>
+        <textarea id="p1-content" class="note-textarea" placeholder="在這裡輸入今天的記事內容..."></textarea>
       </div>
 
-      <!-- 按鈕區域直接緊貼向上升起 -->
+      <!-- 儲存 / 下載 / 上傳 按鈕 -->
       <div class="action-bottom-block">
         <button class="btn btn-primary" onclick="saveNote()">
           <i class="fa-solid fa-floppy-disk"></i> 儲存
@@ -400,40 +420,26 @@
       <input type="file" id="file-input" accept=".xlsx, .xls" onchange="importXLSX(event)">
     </section>
 
-    <!-- 第二頁：日期檢視 -->
+    <!-- 第二頁：檢視 (改為關鍵字與日期複合搜尋) -->
     <section id="page-2" class="page">
-      <h2 class="title-secondary">日期檢視</h2>
+      <h2 class="title-secondary">檢視</h2>
       
-      <div class="form-group filter-bar">
-        <label>檢視日期</label>
-        <div class="date-picker-wrapper" style="width:auto;">
-          <input type="date" id="p2-date" onchange="renderPage2()">
+      <div class="search-bar-container">
+        <i class="fa-solid fa-magnifying-glass search-icon"></i>
+        <input type="text" id="p2-keyword" class="search-input" placeholder="輸入關鍵字" oninput="renderPage2()">
+        
+        <!-- 清除按鈕 (有搜尋條件時顯示) -->
+        <i class="fa-solid fa-circle-xmark clear-search-btn" id="clear-search-btn" onclick="clearP2Search()"></i>
+
+        <!-- 月曆選擇圖示，點擊觸發日期選擇器 -->
+        <div class="calendar-trigger-btn" onclick="openP2DatePicker()">
+          <i class="fa-regular fa-calendar-days"></i>
         </div>
+        <input type="date" id="p2-date" class="hidden-date-picker" onchange="renderPage2()">
       </div>
 
       <div id="p2-list" class="list-container">
-        <!-- 動態渲染紀錄列表 -->
-      </div>
-    </section>
-
-    <!-- 第三頁：分類檢視 -->
-    <section id="page-3" class="page">
-      <h2 class="title-secondary">分類檢視</h2>
-
-      <div class="form-group filter-bar">
-        <label>選擇類別</label>
-        <select id="p3-category" onchange="renderPage3()">
-          <option value="個人活動">個人活動</option>
-          <option value="健康出遊">健康出遊</option>
-          <option value="金融購物">金融購物</option>
-          <option value="家庭事務">家庭事務</option>
-          <option value="大事紀">大事紀</option>
-          <option value="感想">感想</option>
-        </select>
-      </div>
-
-      <div id="p3-list" class="list-container">
-        <!-- 動態渲染最新紀錄列表 -->
+        <!-- 動態渲染搜尋結果列表 -->
       </div>
     </section>
   </main>
@@ -448,22 +454,9 @@
       <i class="fa-regular fa-calendar"></i>
       <span>檢視</span>
     </div>
-    <div class="nav-item" onclick="switchPage(3)">
-      <i class="fa-solid fa-layer-group"></i>
-      <span>分類</span>
-    </div>
   </nav>
 
   <script>
-    const categoryColors = {
-      '個人活動': '#6b9080',
-      '健康出遊': '#e8a598',
-      '金融購物': '#5c809b',
-      '家庭事務': '#d4a373',
-      '大事紀': '#9b82a6',
-      '感想': '#e07a5f'
-    };
-
     let notes = JSON.parse(localStorage.getItem('user_notes')) || [];
     let editingId = null;
 
@@ -487,9 +480,7 @@
     document.addEventListener('DOMContentLoaded', () => {
       const today = getTodayString();
       document.getElementById('p1-date').value = today;
-      document.getElementById('p2-date').value = today;
       renderPage2();
-      renderPage3();
     });
 
     function switchPage(pageNumber) {
@@ -500,12 +491,10 @@
       document.querySelectorAll('.nav-item')[pageNumber - 1].classList.add('active');
 
       if (pageNumber === 2) renderPage2();
-      if (pageNumber === 3) renderPage3();
     }
 
     function saveNote() {
       const date = document.getElementById('p1-date').value;
-      const category = document.getElementById('p1-category').value;
       const content = document.getElementById('p1-content').value.trim();
 
       if (!date || !content) {
@@ -516,7 +505,7 @@
       if (editingId) {
         const index = notes.findIndex(n => n.id === editingId);
         if (index !== -1) {
-          notes[index] = { id: editingId, date, category, content };
+          notes[index] = { id: editingId, date, content };
         }
         editingId = null;
         alert('修改成功！');
@@ -524,7 +513,6 @@
         notes.push({
           id: Date.now(),
           date,
-          category,
           content
         });
         alert('儲存成功！');
@@ -539,59 +527,75 @@
       localStorage.setItem('user_notes', JSON.stringify(notes));
     }
 
+    // 第二頁：開啟月曆選擇器
+    function openP2DatePicker() {
+      const input = document.getElementById('p2-date');
+      if (input.showPicker) {
+        input.showPicker();
+      } else {
+        input.focus();
+        input.click();
+      }
+    }
+
+    // 清除搜尋條件
+    function clearP2Search() {
+      document.getElementById('p2-keyword').value = '';
+      document.getElementById('p2-date').value = '';
+      renderPage2();
+    }
+
+    // 第二頁：搜尋渲染 (關鍵字與日期靈活搭配)
     function renderPage2() {
+      const keyword = document.getElementById('p2-keyword').value.trim().toLowerCase();
       const selectedDate = document.getElementById('p2-date').value;
+      const clearBtn = document.getElementById('clear-search-btn');
       const container = document.getElementById('p2-list');
       container.innerHTML = '';
 
-      const filteredNotes = notes.filter(n => n.date === selectedDate);
+      // 控制清除按鈕顯示
+      if (keyword || selectedDate) {
+        clearBtn.style.display = 'block';
+      } else {
+        clearBtn.style.display = 'none';
+      }
+
+      // 篩選邏輯：同時滿足有輸入的條件
+      let filteredNotes = notes.filter(n => {
+        let matchKeyword = true;
+        let matchDate = true;
+
+        if (keyword) {
+          matchKeyword = n.content.toLowerCase().includes(keyword);
+        }
+        if (selectedDate) {
+          matchDate = (n.date === selectedDate);
+        }
+
+        return matchKeyword && matchDate;
+      });
 
       if (filteredNotes.length === 0) {
-        container.innerHTML = '<div style="text-align:center; color:var(--text-sub); margin-top:30px; font-size:16px;">當日尚無紀錄</div>';
+        container.innerHTML = '<div style="text-align:center; color:var(--text-sub); margin-top:30px; font-size:16px;">尚無符合條件的紀錄</div>';
         return;
       }
 
       filteredNotes.forEach(note => {
-        const itemEl = createRecordElement(note, { showDate: false, showCategory: true });
+        const itemEl = createRecordElement(note);
         container.appendChild(itemEl);
       });
     }
 
-    function renderPage3() {
-      const selectedCategory = document.getElementById('p3-category').value;
-      const container = document.getElementById('p3-list');
-      container.innerHTML = '';
-
-      const filteredNotes = notes.filter(n => n.category === selectedCategory).slice(0, 10);
-
-      if (filteredNotes.length === 0) {
-        container.innerHTML = '<div style="text-align:center; color:var(--text-sub); margin-top:30px; font-size:16px;">此類別尚無紀錄</div>';
-        return;
-      }
-
-      filteredNotes.forEach(note => {
-        const itemEl = createRecordElement(note, { showDate: true, showCategory: true });
-        container.appendChild(itemEl);
-      });
-    }
-
-    function createRecordElement(note, options = {}) {
+    // 建立通用紀錄 DOM 元素
+    function createRecordElement(note) {
       const wrapper = document.createElement('div');
       wrapper.className = 'record-item-wrapper';
 
-      const firstChar = note.category ? note.category.charAt(0) : '記';
-      const bgIconColor = categoryColors[note.category] || '#6b9080';
-
-      let dateHtml = '';
-      if (options.showDate) {
-        const displayDate = formatMonthDay(note.date);
-        dateHtml = `<span class="record-date">${displayDate}</span>`;
-      }
+      const displayDate = formatMonthDay(note.date);
 
       wrapper.innerHTML = `
         <div class="record-item">
-          ${dateHtml}
-          <div class="category-icon" style="background-color: ${bgIconColor}">${firstChar}</div>
+          <span class="record-date">${displayDate}</span>
           <div class="record-content-full">${escapeHtml(note.content)}</div>
         </div>
         <div class="action-btn-group">
@@ -664,7 +668,6 @@
       if (confirm('是否帶入首頁進行修改？')) {
         editingId = targetNote.id;
         document.getElementById('p1-date').value = targetNote.date;
-        document.getElementById('p1-category').value = targetNote.category;
         document.getElementById('p1-content').value = targetNote.content;
         switchPage(1);
       }
@@ -675,10 +678,10 @@
         notes = notes.filter(n => n.id !== id);
         saveToStorage();
         renderPage2();
-        renderPage3();
       }
     }
 
+    // 匯出 XLSX 檔（僅保留「日期」與「內容」兩欄）
     function exportToXLSX() {
       if (notes.length === 0) {
         alert('目前無任何紀錄可供匯出！');
@@ -687,7 +690,6 @@
 
       const exportData = notes.map(n => ({
         '日期': n.date,
-        '類別': n.category,
         '內容': n.content
       }));
 
@@ -698,6 +700,7 @@
       XLSX.writeFile(workbook, `個人記事_${getTodayString()}.xlsx`);
     }
 
+    // 匯入 XLSX 檔
     function importXLSX(event) {
       const file = event.target.files[0];
       if (!file) return;
@@ -715,7 +718,6 @@
             notes.push({
               id: Date.now() + Math.random(),
               date: row['日期'],
-              category: row['類別'] || '個人活動',
               content: row['內容']
             });
             count++;
@@ -725,7 +727,6 @@
         saveToStorage();
         alert(`成功匯入 ${count} 筆資料！`);
         renderPage2();
-        renderPage3();
       };
       reader.readAsArrayBuffer(file);
     }
